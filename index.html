@@ -831,6 +831,394 @@
   </div>
 </div>
 
+<!-- ISSB Master Prompt Floating Button -->
+<button id="issb-fab" onclick="openISSB()" title="ISSB Master Prompt Tool">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+  <span>ISSB Prompt</span>
+</button>
+
+<!-- ISSB Master Prompt Modal -->
+<div id="issb-overlay" onclick="handleISSBOverlayClick(event)">
+  <div id="issb-modal">
+    <div id="issb-header">
+      <div>
+        <h2 id="issb-title">ISSB Master Prompt</h2>
+        <p id="issb-subtitle">WAT Training Configuration</p>
+      </div>
+      <div id="issb-header-actions">
+        <button id="issb-copy-btn" onclick="copyISSBPrompt()">
+          <svg id="issb-copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+          <span id="issb-copy-text">Copy Prompt</span>
+        </button>
+        <button id="issb-close-btn" onclick="closeISSB()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="issb-content">
+      <pre id="issb-prompt-text">### ✅ MASTER PROMPT — ISSB WAT TRAINING (WORD BY WORD)
+
+**Role:**
+You are a *Senior ISSB Psychologist and Officer Selection Trainer*.
+
+**Task:**
+Teach me **Word Association Test (WAT)** strictly for **ISSB / officer selection**, focusing only on:
+
+• word interpretation
+• thinking direction
+• sentence formation psychology
+
+This is NOT an answer bank and NOT an English class.
+
+---
+
+### ✅ Training Method (FOLLOW STRICTLY FOR EVERY WORD)
+
+For each word, teach in the following fixed structure only:
+
+---
+
+🔹 **WORD NO. __ : (Flash the word clearly on top)**
+
+---
+
+### 1️⃣ Word Nature
+
+Explain whether the word is:
+
+• Positive
+• Neutral
+• Negative
+
+Also explain **why ISSB psychologists psychologically treat it that way**.
+
+---
+
+### 2️⃣ What the Word Tests
+
+Explain clearly:
+
+• Which **Officer Like Qualities (OLQs)** this word checks
+• What kind of **mental reaction** ISSB psychologists look for when this word appears
+
+Keep it practical — not textbook definitions.
+
+---
+
+### 3️⃣ Correct Thinking Direction
+
+Explain how an officer's mind should move **within 2–3 seconds**, for example:
+
+• action-based thinking
+• responsibility acceptance
+• leadership initiative
+• emotional control
+• optimistic realism
+
+Explain this in **simple, practical terms** (not theory, not slogans).
+
+---
+
+### 4️⃣ Sentence-Making Logic  *(MOST IMPORTANT PART)*
+
+Teach clearly:
+
+• What type of sentence is suitable
+(action / attitude / responsibility / solution)
+
+• Why the sentence **may or may not include the word itself**
+
+• How to keep the sentence
+– short
+– natural
+– decisive
+
+• How to avoid:
+– fear-based thoughts
+– blame
+– excuses
+– negative constructions like
+"cannot", "do not", "never"
+
+Explain the **mental formula behind the sentence**, such as:
+
+> situation → responsibility → action / attitude
+
+---
+
+### 5️⃣ Common Weak Responses
+
+Give **2–3 examples of weak or wrong thinking**
+(prefer short phrases instead of full sentences if possible)
+
+Also explain briefly **why ISSB psychologists reject them**.
+
+---
+
+### 6️⃣ One Ideal Officer-Like Response
+
+Give **only ONE sentence** which:
+
+• can be written within 10 seconds
+• reflects OLQs
+• sounds natural, not memorized
+• is psychologically strong
+• is realistic (no heroic or dramatic tone)
+
+---
+
+### After finishing one word, always ask:
+
+**"Shall we move to the next word?"**
+
+---
+
+### ✅ Additional strict rules for you as the trainer
+
+• This is a **personality-thinking class**, not an answer list
+• Do not over-polish language
+• Keep sentences simple and officer-like
+• Focus on thinking process, not vocabulary
+• Maintain realism — no motivational or heroic language
+• Mix words in sequence:
+– positive
+– neutral
+– negative
+
+---
+
+### ✅ Important interaction rule
+
+I will give you the words **one by one**.
+You must teach **only one word at a time** using the above structure.</pre>
+    </div>
+    <div id="issb-footer">Senior ISSB Psychologist Training Protocol</div>
+  </div>
+</div>
+
+<!-- ISSB Toast -->
+<div id="issb-toast">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  Copied to clipboard!
+</div>
+
+<style>
+  /* ISSB FAB */
+  #issb-fab {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #1A1814;
+    color: #F7F5F0;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    z-index: 8888;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  #issb-fab:hover { background: #C8392B; transform: translateY(-2px); }
+
+  /* ISSB OVERLAY */
+  #issb-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(26,24,20,0.6);
+    z-index: 9000;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+  }
+  #issb-overlay.active { display: flex; }
+
+  /* ISSB MODAL */
+  #issb-modal {
+    background: #fff;
+    width: 100%;
+    max-width: 42rem;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+
+  /* ISSB HEADER */
+  #issb-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #E8E4DC;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    flex-shrink: 0;
+  }
+  #issb-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #1A1814;
+    letter-spacing: -0.01em;
+  }
+  #issb-subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8A8580;
+    margin-top: 0.2rem;
+  }
+  #issb-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  #issb-copy-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #1A1814;
+    color: #F7F5F0;
+    border: none;
+    padding: 0.55rem 1rem;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.1s;
+  }
+  #issb-copy-btn:hover { background: #C8392B; }
+  #issb-copy-btn:active { transform: scale(0.97); }
+  #issb-copy-btn.copied { background: #3A7D52; }
+  #issb-close-btn {
+    background: none;
+    border: none;
+    color: #8A8580;
+    cursor: pointer;
+    padding: 0.3rem;
+    display: flex;
+    transition: color 0.2s;
+  }
+  #issb-close-btn:hover { color: #1A1814; }
+
+  /* ISSB CONTENT */
+  #issb-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background: #FAFAF8;
+  }
+  #issb-content::-webkit-scrollbar { width: 5px; }
+  #issb-content::-webkit-scrollbar-track { background: #F0EDE8; }
+  #issb-content::-webkit-scrollbar-thumb { background: #D8D4CC; border-radius: 10px; }
+
+  #issb-prompt-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: #1A1814;
+    white-space: pre-wrap;
+    line-height: 1.75;
+  }
+
+  /* ISSB FOOTER */
+  #issb-footer {
+    padding: 0.75rem 1.5rem;
+    border-top: 1px solid #E8E4DC;
+    background: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8A8580;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  /* ISSB TOAST */
+  #issb-toast {
+    position: fixed;
+    bottom: 5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(1rem);
+    background: #3A7D52;
+    color: #fff;
+    padding: 0.65rem 1.25rem;
+    border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 9999;
+    white-space: nowrap;
+  }
+  #issb-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 600px) {
+    #issb-fab span { display: none; }
+    #issb-fab { padding: 0.85rem; border-radius: 50%; bottom: 1.5rem; right: 1.5rem; }
+    #issb-modal { max-height: 95vh; }
+  }
+</style>
+
+<script>
+  function openISSB() {
+    document.getElementById('issb-overlay').classList.add('active');
+  }
+  function closeISSB() {
+    document.getElementById('issb-overlay').classList.remove('active');
+  }
+  function handleISSBOverlayClick(e) {
+    if (e.target === document.getElementById('issb-overlay')) closeISSB();
+  }
+  function copyISSBPrompt() {
+    const text = document.getElementById('issb-prompt-text').innerText;
+    const btn = document.getElementById('issb-copy-btn');
+    const copyText = document.getElementById('issb-copy-text');
+    const toast = document.getElementById('issb-toast');
+
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+
+    copyText.innerText = 'Copied!';
+    btn.classList.add('copied');
+    toast.classList.add('show');
+
+    setTimeout(() => {
+      copyText.innerText = 'Copy Prompt';
+      btn.classList.remove('copied');
+      toast.classList.remove('show');
+    }, 2500);
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('issb-overlay').classList.contains('active')) {
+      closeISSB();
+    }
+  });
+</script>
+
 <script>
 (function() {
   const ALL_WORDS = [
