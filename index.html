@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Association Test</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F5F0;
+    --ink: #1A1814;
+    --muted: #8A8580;
+    --rule: #D8D4CC;
+    --accent: #C8392B;
+    --cat1: #2C5F8A;
+    --cat2: #3A7D52;
+    --cat3: #8A3A7D;
+    --cat4: #C8392B;
+    --cat5: #2C5F8A;
+    --cat6: #5A6B3A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* COVER PAGE */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 8vw 10vw;
+    position: relative;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 38%;
+    height: 100%;
+    background: var(--ink);
+    z-index: 0;
+  }
+
+  .cover-content { position: relative; z-index: 1; max-width: 55%; }
+
+  .cover-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .cover h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    line-height: 1.1;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .cover h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .cover-sub {
+    font-size: 0.9rem;
+    color: var(--muted);
+    max-width: 360px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .meta-value {
+    font-size: 0.85rem;
+    font-weight: 400;
+  }
+
+  .cover-right {
+    position: absolute;
+    right: 0; top: 0;
+    width: 38%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8vw 6vw;
+    color: var(--bg);
+  }
+
+  .toc-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(247,245,240,0.4);
+    margin-bottom: 2rem;
+  }
+
+  .toc-list { list-style: none; }
+
+  .toc-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(247,245,240,0.1);
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .toc-item:hover { opacity: 0.7; }
+
+  .toc-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(247,245,240,0.35);
+  }
+
+  .toc-name {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: rgba(247,245,240,0.85);
+    flex: 1;
+  }
+
+  .toc-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(247,245,240,0.35);
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 6rem 10vw;
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: start;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    padding-top: 0.4rem;
+  }
+
+  .section-cat {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  .section-focus {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    font-style: italic;
+  }
+
+  .section-badge {
+    width: 3px;
+    height: 3rem;
+    border-radius: 2px;
+  }
+
+  /* WORD GRID */
+  .word-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0;
+    border: 1px solid var(--rule);
+  }
+
+  .word-card {
+    padding: 1.5rem 1.75rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    transition: background 0.15s;
+  }
+
+  .word-card:hover { background: rgba(26,24,20,0.03); }
+
+  .word-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 3px;
+    height: 100%;
+  }
+
+  .word-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .word-sentence {
+    font-size: 0.78rem;
+    line-height: 1.65;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* WORD TAGS (overview) */
+  .word-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .word-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    border-radius: 1px;
+  }
+
+  /* COLOR ACCENTS PER CATEGORY */
+  .cat-1 { --c: var(--cat1); }
+  .cat-2 { --c: var(--cat2); }
+  .cat-3 { --c: var(--cat3); }
+  .cat-4 { --c: var(--cat4); }
+  .cat-5 { --c: var(--cat1); }
+  .cat-6 { --c: var(--cat6); }
+
+  .section-badge { background: var(--c); }
+  .word-card::before { background: var(--c); }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--rule);
+    margin: 0 10vw;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 10vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  @media (min-width: 700px) {
+    footer {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+  }
+
+  .footer-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* PRINT */
+  @media print {
+    .cover { page-break-after: always; }
+    .section { page-break-inside: avoid; }
+  }
+
+  @media (max-width: 700px) {
+    .cover::before { display: none; }
+    .cover-content { max-width: 100%; padding-top: 2rem; }
+    .cover-right { display: none; }
+    .section-header { grid-template-columns: auto 1fr; }
+    .section-badge { display: none; }
+    .section { padding: 4rem 6vw; }
+    .word-grid { grid-template-columns: 1fr; }
+  }
+
+  /* WAT BUTTON STYLES */
+  .wat-start-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    padding: 1rem 1.75rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: 2rem;
+    font-family: 'DM Sans', sans-serif;
+    text-align: left;
+    width: 100%;
+    max-width: 280px;
+  }
+  .wat-start-btn:hover { background: var(--accent); transform: translateY(-2px); }
+  .wat-btn-label {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .wat-btn-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  /* WAT OVERLAY */
+  #wat-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #wat-overlay.active { display: flex; }
+
+  /* START SCREEN */
+  #wat-start-screen {
+    text-align: center;
+    color: #fff;
+    padding: 2rem;
+    max-width: 500px;
+  }
+  #wat-start-screen h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    color: #fff;
+  }
+  #wat-start-screen p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    line-height: 2;
+  }
+  #wat-begin-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  #wat-begin-btn:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+
+  /* WORD DISPLAY */
+  #wat-word-screen {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+  }
+  #wat-word-screen.visible { display: flex; }
+
+  #wat-word {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.5rem, 12vw, 7rem);
+    font-weight: 400;
+    color: #fff;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    word-break: break-word;
+    max-width: 90vw;
+  }
+  #wat-word.show { opacity: 1; }
+
+  #wat-serial {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  /* PROGRESS BAR */
+  #wat-progress-bar {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    width: 100%;
+  }
+  #wat-progress-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 100%;
+    transform-origin: left;
+    transition: none;
+  }
+
+  /* PAGE BREAK SCREEN */
+  #wat-break-screen {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    padding: 2rem;
+  }
+  #wat-break-screen.visible { display: flex; }
+  #wat-break-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 1.5rem;
+  }
+  #wat-break-page {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 8vw, 5rem);
+    font-weight: 400;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  #wat-break-countdown {
+    font-family: 'DM Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* DONE SCREEN */
+  #wat-done-screen {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+  #wat-done-screen.visible { display: flex; }
+  #wat-done-screen h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  #wat-done-screen p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+  }
+  #wat-close-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.75rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    margin-top: 1rem;
+  }
+  #wat-close-btn:hover { border-color: #fff; }
+
+  /* CLOSE X */
+  #wat-close-x {
+    position: absolute;
+    top: 1.5rem; right: 1.75rem;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.2);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 10;
+  }
+  #wat-close-x:hover { color: rgba(255,255,255,0.7); }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-content">
+    <p class="cover-label">Psychological Assessment · Series IV</p>
+    <h1>Word<br><em>Association</em><br>Test</h1>
+    <p class="cover-sub">A structured instrument for assessing spontaneous verbal responses across six categorical domains of human psychology.</p>
+    <div class="cover-meta">
+      <div class="meta-item">
+        <span class="meta-label">Categories</span>
+        <span class="meta-value">6</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Total Words</span>
+        <span class="meta-value">93</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Format</span>
+        <span class="meta-value">Stimulus–Response</span>
+      </div>
+    </div>
+    <button class="wat-start-btn" onclick="startWAT()">
+        <span class="wat-btn-label">Take WAT</span>
+        <span class="wat-btn-sub">80 words · 8.2 sec each</span>
+      </button>
+  </div>
+
+  <div class="cover-right">
+    <p class="toc-title">Contents</p>
+    <ul class="toc-list">
+      <li class="toc-item"><span class="toc-num">01</span><span class="toc-name">Leadership &amp; Goal Orientation</span><span class="toc-count">14</span></li>
+      <li class="toc-item"><span class="toc-num">02</span><span class="toc-name">Social &amp; Interpersonal</span><span class="toc-count">15</span></li>
+      <li class="toc-item"><span class="toc-num">03</span><span class="toc-name">Handling Negativity &amp; Stress</span><span class="toc-count">24</span></li>
+      <li class="toc-item"><span class="toc-num">04</span><span class="toc-name">Morality &amp; Logic</span><span class="toc-count">10</span></li>
+      <li class="toc-item"><span class="toc-num">05</span><span class="toc-name">Challenges &amp; Hardship</span><span class="toc-count">12</span></li>
+      <li class="toc-item"><span class="toc-num">06</span><span class="toc-name">Emotional State</span><span class="toc-count">12</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="section cat-1">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <div class="section-title-block">
+      <p class="section-cat">Category One</p>
+      <h2 class="section-title">Leadership &amp;<br>Goal Orientation</h2>
+      <p class="section-focus">Focus: Decision-making, initiative, and grit</p>
+    </div>
+    <div class="section-badge"></div>
+  </div>
+  <div class="word-tags">
+    <span class="word-tag">Lead</span><span class="word-tag">Purpose</span><span class="word-tag">Plan</span><span class="word-tag">Success</span><span class="word-tag">Discipline</span><span class="word-tag">Decide</span><span class="word-tag">Critical</span><span class="word-tag">Achieve</span><span class="word-tag">Goal</span><span class="word-tag">Legend</span><span class="word-tag">Future</span><span class="word-tag">Change</span><span class="word-tag">Pride</span><span class="word-tag">Decision</span>
+  </div>
+  <div class="word-grid">
+    <div class="word-card cat-1"><p class="word-name">Lead</p><p class="word-sentence">A good leader motivates the team.</p></div>
+    <div class="word-card cat-1"><p class="word-name">Purpose</p><p class="word-sentence">A clear purpose leads to success.</p></div>
+    <div class="word-card cat-1"><p class="word-name">Plan</p><p class="word-sentence">Planning ensures smooth execution.</p></div>
+    <div class="word-card cat-1"><p class="word-name">Success</p><p class="word-sentence">Hard work is the key to success.</p></div>
+    <div class="word-card cat-1"><p class="word-name">Discipline</p><p class="word-sentence">Discipline builds character.</p></div>
+    <div class="word-card cat-1"><p class="word-name">Decide</p><p class="word-sentence">Timely decisions save resources.</p></div>
+    <div class="word-card cat-1"><p class="word-name">Critical</p><p class="word-sentence">Critical thinking helps in crisis.</p></div>
+    <div class="word-card cat-1"><p class="word-name">Achieve</p><p class="word-sentence">Determination helps achieve goals.</p></div>
+    <div class="word-card cat-1"><p class="word-name">Goal</p><p class="word-sentence">Focus leads to the goal.</p></div>
+    <div class="word-card cat-1"><p class="word-name">Legend</p><p class="word-sentence">Legends inspire generations.</p></div>
+    <div class="word-card cat-1"><p class="word-name">Future</p><p class="word-sentence">Bright futures are built today.</p></div>
+    <div class="word-card cat-1"><p class="word-name">Change</p><p class="word-sentence">Change brings growth.</p></div>
+    <div class="word-card cat-1"><p class="word-name">Pride</p><p class="word-sentence">Pride in one's work drives excellence.</p></div>
+    <div class="word-card cat-1"><p class="word-name">Decision</p><p class="word-sentence">Firm decisions show confidence.</p></div>
+  </div>
+</div>
+
+<div class="section cat-2">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div class="section-title-block">
+      <p class="section-cat">Category Two</p>
+      <h2 class="section-title">Social &amp;<br>Interpersonal</h2>
+      <p class="section-focus">Focus: Maturity, relationships, and stability</p>
+    </div>
+    <div class="section-badge"></div>
+  </div>
+  <div class="word-tags">
+    <span class="word-tag">Friend</span><span class="word-tag">Girl</span><span class="word-tag">Parents</span><span class="word-tag">Society</span><span class="word-tag">Cooperation</span><span class="word-tag">Character</span><span class="word-tag">Culture</span><span class="word-tag">Assist</span><span class="word-tag">Kiss</span><span class="word-tag">Love</span><span class="word-tag">Hug</span><span class="word-tag">Intimacy</span><span class="word-tag">Gender</span><span class="word-tag">Prostitute</span><span class="word-tag">Marriage</span>
+  </div>
+  <div class="word-grid">
+    <div class="word-card cat-2"><p class="word-name">Friend</p><p class="word-sentence">True friends stand by you in every season.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Girl</p><p class="word-sentence">Girls shape the future of every society.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Parents</p><p class="word-sentence">Parents are our first teachers.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Society</p><p class="word-sentence">Contributing to society is a duty.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Cooperation</p><p class="word-sentence">Cooperation speeds up the task.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Character</p><p class="word-sentence">Integrity defines character.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Culture</p><p class="word-sentence">We should respect every culture.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Assist</p><p class="word-sentence">Assisting others builds bonds.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Kiss</p><p class="word-sentence">A gentle kiss expresses affection.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Love</p><p class="word-sentence">Love fosters harmony.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Hug</p><p class="word-sentence">A hug shows warmth.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Intimacy</p><p class="word-sentence">Intimacy requires trust.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Gender</p><p class="word-sentence">Gender equality empowers a nation.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Prostitute</p><p class="word-sentence">Society must protect the vulnerable.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Marriage</p><p class="word-sentence">Marriage is a sacred bond.</p></div>
+  </div>
+</div>
+
+<div class="section cat-4">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div class="section-title-block">
+      <p class="section-cat">Category Three</p>
+      <h2 class="section-title">Aggression &amp;<br>Stress Response</h2>
+      <p class="section-focus">Focus: Remaining calm, objective, and constructive</p>
+    </div>
+    <div class="section-badge"></div>
+  </div>
+  <div class="word-tags">
+    <span class="word-tag">Enemy</span><span class="word-tag">Fear</span><span class="word-tag">Ghost</span><span class="word-tag">Monster</span><span class="word-tag">Blood</span><span class="word-tag">Afraid</span><span class="word-tag">Anger</span><span class="word-tag">Hostage</span><span class="word-tag">Murdered</span><span class="word-tag">Gun</span><span class="word-tag">Assault</span><span class="word-tag">Harm</span><span class="word-tag">Knife</span><span class="word-tag">Arrest</span><span class="word-tag">Rape</span><span class="word-tag">Genocide</span><span class="word-tag">Revolt</span><span class="word-tag">Shoot</span><span class="word-tag">Curse</span><span class="word-tag">Betrayals</span><span class="word-tag">Frustrate</span><span class="word-tag">Distraction</span><span class="word-tag">Evil</span><span class="word-tag">Fail</span>
+  </div>
+  <div class="word-grid">
+    <div class="word-card cat-4"><p class="word-name">Enemy</p><p class="word-sentence">A brave soldier defeats the enemy.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Fear</p><p class="word-sentence">Courage overcomes fear.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Ghost</p><p class="word-sentence">Science dispels the myth of ghosts.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Monster</p><p class="word-sentence">Only our fears are monsters.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Blood</p><p class="word-sentence">Blood donation saves lives.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Afraid</p><p class="word-sentence">Being brave means acting even when afraid.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Anger</p><p class="word-sentence">Patience controls anger.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Hostage</p><p class="word-sentence">Special forces rescue hostages.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Murdered</p><p class="word-sentence">Justice prevails over crime.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Gun</p><p class="word-sentence">A gun is a soldier's companion.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Assault</p><p class="word-sentence">Laws protect against assault.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Harm</p><p class="word-sentence">We should not harm the innocent.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Knife</p><p class="word-sentence">A knife is a useful tool.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Arrest</p><p class="word-sentence">Police arrest lawbreakers.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Rape</p><p class="word-sentence">Strict laws deter heinous crimes.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Genocide</p><p class="word-sentence">Humanity must prevent genocide.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Revolt</p><p class="word-sentence">History is shaped by revolts.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Shoot</p><p class="word-sentence">Soldiers shoot with precision.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Curse</p><p class="word-sentence">Knowledge removes the curse of ignorance.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Betrayals</p><p class="word-sentence">Loyalty overcomes betrayals.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Frustrate</p><p class="word-sentence">Persistence kills frustration.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Distraction</p><p class="word-sentence">Focus avoids distraction.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Evil</p><p class="word-sentence">Good always triumphs over evil.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Fail</p><p class="word-sentence">Failure is a stepping stone.</p></div>
+  </div>
+</div>
+
+<div class="section cat-3">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div class="section-title-block">
+      <p class="section-cat">Category Four</p>
+      <h2 class="section-title">Morality &amp;<br>Logic</h2>
+      <p class="section-focus">Focus: Honesty, logic, and ethical standing</p>
+    </div>
+    <div class="section-badge"></div>
+  </div>
+  <div class="word-tags">
+    <span class="word-tag">Morality</span><span class="word-tag">Peace</span><span class="word-tag">Integrity</span><span class="word-tag">Truth</span><span class="word-tag">Lie</span><span class="word-tag">Greed</span><span class="word-tag">Jealous</span><span class="word-tag">Charity</span><span class="word-tag">Mercy</span><span class="word-tag">Propose</span><span class="word-tag">Order</span>
+  </div>
+  <div class="word-grid">
+    <div class="word-card cat-3"><p class="word-name">Morality</p><p class="word-sentence">Morality guides a person's path.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Peace</p><p class="word-sentence">Peace promotes prosperity.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Integrity</p><p class="word-sentence">Integrity defines character.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Truth</p><p class="word-sentence">Truth is better than a lie.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Lie</p><p class="word-sentence">Honesty is always the better path.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Greed</p><p class="word-sentence">Greed leads to downfall.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Jealous</p><p class="word-sentence">Competition is better than jealousy.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Charity</p><p class="word-sentence">Charity helps the needy.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Mercy</p><p class="word-sentence">Mercy is a quality of the brave.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Propose</p><p class="word-sentence">He proposed a new project.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Order</p><p class="word-sentence">Order ensures efficiency.</p></div>
+  </div>
+</div>
+
+<div class="section cat-5">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <div class="section-title-block">
+      <p class="section-cat">Category Five</p>
+      <h2 class="section-title">Challenges &amp;<br>Hardship</h2>
+      <p class="section-focus">Focus: Resilience, adversity, and perseverance</p>
+    </div>
+    <div class="section-badge"></div>
+  </div>
+  <div class="word-tags">
+    <span class="word-tag">Struggle</span><span class="word-tag">Conflict</span><span class="word-tag">Pressure</span><span class="word-tag">Frustration</span><span class="word-tag">Distraction</span><span class="word-tag">Fail</span><span class="word-tag">Problem</span><span class="word-tag">Disaster</span><span class="word-tag">Adverse</span><span class="word-tag">Defeat</span>
+  </div>
+  <div class="word-grid">
+    <div class="word-card cat-5"><p class="word-name">Struggle</p><p class="word-sentence">Struggle strengthens the will.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Conflict</p><p class="word-sentence">Dialogue resolves conflict peacefully.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Pressure</p><p class="word-sentence">Diamonds are made under pressure.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Frustration</p><p class="word-sentence">Patience converts frustration into focus.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Distraction</p><p class="word-sentence">Discipline prevents distraction.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Fail</p><p class="word-sentence">Failure is a stepping stone to success.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Problem</p><p class="word-sentence">Every problem carries a hidden solution.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Disaster</p><p class="word-sentence">Preparedness reduces disaster impact.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Adverse</p><p class="word-sentence">Adverse conditions build stronger people.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Defeat</p><p class="word-sentence">Defeat teaches more than victory.</p></div>
+  </div>
+</div>
+
+<div class="section cat-6">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <div class="section-title-block">
+      <p class="section-cat">Category Six</p>
+      <h2 class="section-title">Emotional<br>State</h2>
+      <p class="section-focus">Focus: Self-awareness, mood, and regulation</p>
+    </div>
+    <div class="section-badge"></div>
+  </div>
+  <div class="word-tags">
+    <span class="word-tag">Happy</span><span class="word-tag">Funny</span><span class="word-tag">Proud</span><span class="word-tag">Depressed</span><span class="word-tag">Insane</span><span class="word-tag">Hesitation</span><span class="word-tag">Admire</span><span class="word-tag">Hostile</span><span class="word-tag">Reject</span><span class="word-tag">Boring</span><span class="word-tag">Stupid</span><span class="word-tag">Suspicious</span>
+  </div>
+  <div class="word-grid">
+    <div class="word-card cat-6"><p class="word-name">Happy</p><p class="word-sentence">Success makes one happy.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Funny</p><p class="word-sentence">Humor lightens the mood.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Proud</p><p class="word-sentence">Achievements make one proud.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Depressed</p><p class="word-sentence">Exercise and connection help cure depression.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Insane</p><p class="word-sentence">Hard work is an insane passion.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Hesitation</p><p class="word-sentence">Confidence eliminates hesitation.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Admire</p><p class="word-sentence">We admire brave hearts.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Hostile</p><p class="word-sentence">Empathy disarms a hostile attitude.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Reject</p><p class="word-sentence">Rejection redirects one to better paths.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Boring</p><p class="word-sentence">Creativity kills boredom.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Stupid</p><p class="word-sentence">Education cures ignorance.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Suspicious</p><p class="word-sentence">Trust leaves no room for suspicion.</p></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+<footer>
+  <span class="footer-label">Word Association Test · 6 Categories · 93 Stimulus Words</span>
+  <span class="footer-label">Psychological Assessment Instrument</span>
+</footer>
+
+<div id="wat-overlay">
+  <button id="wat-close-x" onclick="closeWAT()">ESC / CLOSE</button>
+
+  <div id="wat-start-screen">
+    <h2>Word Association<br>Test</h2>
+    <p>
+      80 words · 4 pages of 20<br>
+      8.2 seconds per word<br>
+      5 second page break<br>
+      Respond spontaneously
+    </p>
+    <button id="wat-begin-btn" onclick="beginWAT()">Begin Test</button>
+  </div>
+
+  <div id="wat-word-screen">
+    <div id="wat-serial"></div>
+    <div id="wat-word"></div>
+    <div id="wat-progress-bar"><div id="wat-progress-fill"></div></div>
+  </div>
+
+  <div id="wat-break-screen">
+    <div id="wat-break-title">Page Break</div>
+    <div id="wat-break-page"></div>
+    <div id="wat-break-countdown"></div>
+  </div>
+
+  <div id="wat-done-screen">
+    <h3>Test Complete</h3>
+    <p>80 words presented · Thank you</p>
+    <button id="wat-close-btn" onclick="closeWAT()">Return to Reference</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const ALL_WORDS = [
+    "Friend","Girl","Parents","Society","Cooperation","Character","Culture","Assist","Kiss","Love",
+    "Hug","Intimacy","Gender","Prostitute","Marriage",
+    "Struggle","Conflict","Pressure","Frustration","Distraction","Fail","Problem","Disaster","Adverse","Defeat",
+    "Morality","Peace","Integrity","Truth","Lie","Evil","Betrayals","Dirty","Nonsense","Greed","Jealous","Propose","Charity","Mercy",
+    "Enemy","Fear","Ghost","Monster","Blood","Afraid","Anger","Hostage","Murdered","Gun","Assault","Harm","Knife","Arrest","Rape","Genocide","Revolt","Shoot","Curse",
+    "Lead","Purpose","Plan","Success","Discipline","Decide","Critical","Achieve","Goal","Legend","Future","Change","Pride","Decision",
+    "Happy","Funny","Proud","Depressed","Insane","Hesitation","Admire","Hostile","Reject","Boring","Stupid","Suspicious",
+    "Money","Order","Hate","Dirty"
+  ];
+
+  const UNIQUE_WORDS = [...new Set(ALL_WORDS)];
+  const WORD_DURATION = 8200; 
+  const PAGE_BREAK_DURATION = 5000; 
+  const WORDS_PER_PAGE = 20;
+  const TOTAL_WORDS = 80;
+
+  let testWords = [];
+  let currentIndex = 0;
+  let timer = null;
+  let audioCtx = null;
+
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function getAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+  }
+
+  // TELEPHONE RING SOUND
+  function playChime() {
+    try {
+      const ctx = getAudioCtx();
+      const now = ctx.currentTime;
+      
+      // Create a modulated ring using two frequencies (440Hz & 480Hz)
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      const lfo = ctx.createOscillator();
+      const lfoGain = ctx.createGain();
+
+      osc1.frequency.value = 440;
+      osc2.frequency.value = 480;
+      lfo.frequency.value = 20; // Rapid flutter for the ring effect
+      lfoGain.gain.value = 0.5;
+
+      osc1.connect(gainNode);
+      osc2.connect(gainNode);
+      lfo.connect(lfoGain);
+      lfoGain.connect(gainNode.gain);
+      gainNode.connect(ctx.destination);
+
+      gainNode.gain.setValueAtTime(0, now);
+      gainNode.gain.linearRampToValueAtTime(0.2, now + 0.05);
+      gainNode.gain.linearRampToValueAtTime(0, now + 0.4);
+
+      osc1.start(now);
+      osc2.start(now);
+      lfo.start(now);
+      osc1.stop(now + 0.4);
+      osc2.stop(now + 0.4);
+      lfo.stop(now + 0.4);
+    } catch(e) {}
+  }
+
+  function playPageChime() {
+    try {
+      const ctx = getAudioCtx();
+      [0, 0.15].forEach((offset) => {
+        const osc = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+        osc.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(330, ctx.currentTime + offset);
+        gainNode.gain.setValueAtTime(0.05, ctx.currentTime + offset);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + offset + 0.5);
+        osc.start(ctx.currentTime + offset);
+        osc.stop(ctx.currentTime + offset + 0.5);
+      });
+    } catch(e) {}
+  }
+
+  function showScreen(name) {
+    document.getElementById('wat-start-screen').style.display = 'none';
+    document.getElementById('wat-word-screen').classList.remove('visible');
+    document.getElementById('wat-break-screen').classList.remove('visible');
+    document.getElementById('wat-done-screen').classList.remove('visible');
+
+    if (name === 'start') document.getElementById('wat-start-screen').style.display = 'block';
+    else if (name === 'word') document.getElementById('wat-word-screen').classList.add('visible');
+    else if (name === 'break') document.getElementById('wat-break-screen').classList.add('visible');
+    else if (name === 'done') document.getElementById('wat-done-screen').classList.add('visible');
+  }
+
+  function animateProgress(duration) {
+    const fill = document.getElementById('wat-progress-fill');
+    fill.style.transition = 'none';
+    fill.style.width = '100%';
+    fill.offsetWidth;
+    fill.style.transition = `width ${duration}ms linear`;
+    fill.style.width = '0%';
+  }
+
+  function showWord(index) {
+    if (index >= TOTAL_WORDS) {
+      endTest();
+      return;
+    }
+
+    const pageNum = Math.floor(index / WORDS_PER_PAGE) + 1;
+    const posInPage = index % WORDS_PER_PAGE;
+
+    if (posInPage === 0 && index !== 0) {
+      showPageBreak(pageNum, index);
+      return;
+    }
+
+    showScreen('word');
+    const wordEl = document.getElementById('wat-word');
+    const serialEl = document.getElementById('wat-serial');
+    serialEl.textContent = `Word ${index + 1} of ${TOTAL_WORDS} · Page ${pageNum}`;
+
+    wordEl.classList.remove('show');
+    setTimeout(() => {
+      wordEl.textContent = testWords[index];
+      wordEl.classList.add('show');
+    }, 120);
+
+    animateProgress(WORD_DURATION);
+
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      playChime();
+      currentIndex++;
+      showWord(currentIndex);
+    }, WORD_DURATION);
+  }
+
+  function showPageBreak(nextPage, resumeIndex) {
+    showScreen('break');
+    playPageChime();
+    document.getElementById('wat-break-page').textContent = `Page ${nextPage}`;
+    let remaining = Math.ceil(PAGE_BREAK_DURATION / 1000);
+    document.getElementById('wat-break-countdown').textContent = remaining;
+
+    const countdown = setInterval(() => {
+      remaining--;
+      document.getElementById('wat-break-countdown').textContent = remaining;
+      if (remaining <= 0) {
+        clearInterval(countdown);
+        showWord(resumeIndex);
+      }
+    }, 1000);
+  }
+
+  function endTest() {
+    showScreen('done');
+    clearTimeout(timer);
+  }
+
+  window.startWAT = function() {
+    document.getElementById('wat-overlay').classList.add('active');
+    showScreen('start');
+  };
+
+  window.beginWAT = function() {
+    testWords = shuffle(UNIQUE_WORDS).slice(0, TOTAL_WORDS);
+    currentIndex = 0;
+    showWord(0);
+  };
+
+  window.closeWAT = function() {
+    clearTimeout(timer);
+    document.getElementById('wat-overlay').classList.remove('active');
+    showScreen('start');
+    document.getElementById('wat-word').classList.remove('show');
+  };
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      if (document.getElementById('wat-overlay').classList.contains('active')) {
+        closeWAT();
+      }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
