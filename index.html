@@ -218,46 +218,6 @@
     border-radius: 2px;
   }
 
-  /* PROMPT SECTION STYLES */
-  .prompt-container {
-    background: #FFF;
-    border: 1px solid var(--rule);
-    padding: 2rem;
-    margin-top: 2rem;
-    position: relative;
-    max-width: 800px;
-  }
-
-  .prompt-text {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.85rem;
-    line-height: 1.6;
-    color: var(--ink);
-    white-space: pre-wrap;
-    max-height: 500px;
-    overflow-y: auto;
-    padding-right: 1rem;
-  }
-
-  .copy-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--ink);
-    color: var(--bg);
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    cursor: pointer;
-    margin-top: 1.5rem;
-    transition: background 0.2s;
-  }
-
-  .copy-btn:hover { background: var(--cat1); }
-
   /* WORD GRID */
   .word-grid {
     display: grid;
@@ -358,6 +318,22 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--muted);
+  }
+
+  /* PRINT */
+  @media print {
+    .cover { page-break-after: always; }
+    .section { page-break-inside: avoid; }
+  }
+
+  @media (max-width: 700px) {
+    .cover::before { display: none; }
+    .cover-content { max-width: 100%; padding-top: 2rem; }
+    .cover-right { display: none; }
+    .section-header { grid-template-columns: auto 1fr; }
+    .section-badge { display: none; }
+    .section { padding: 4rem 6vw; }
+    .word-grid { grid-template-columns: 1fr; }
   }
 
   /* WAT BUTTON STYLES */
@@ -586,17 +562,6 @@
     z-index: 10;
   }
   #wat-close-x:hover { color: rgba(255,255,255,0.7); }
-
-  @media (max-width: 700px) {
-    .cover::before { display: none; }
-    .cover-content { max-width: 100%; padding-top: 2rem; }
-    .cover-right { display: none; }
-    .section-header { grid-template-columns: auto 1fr; }
-    .section-badge { display: none; }
-    .section { padding: 4rem 6vw; }
-    .word-grid { grid-template-columns: 1fr; }
-    .prompt-container { padding: 1.25rem; }
-  }
 </style>
 </head>
 <body>
@@ -639,159 +604,6 @@
   </div>
 </div>
 
-<div class="section cat-2">
-  <div class="section-header">
-    <span class="section-num">PROMPT</span>
-    <div class="section-title-block">
-      <p class="section-cat">AI Integration</p>
-      <h2 class="section-title">Prompt to use In<br>AI Chatbot</h2>
-      <p class="section-focus">Instructional set for Senior ISSB Psychologist simulation</p>
-    </div>
-    <div class="section-badge" style="background:var(--ink)"></div>
-  </div>
-
-  <div class="prompt-container">
-    <div id="ai-prompt-text" class="prompt-text">### ✅ MASTER PROMPT — ISSB WAT TRAINING (WORD BY WORD)
-
-**Role:**
-You are a *Senior ISSB Psychologist and Officer Selection Trainer*.
-
-**Task:**
-Teach me **Word Association Test (WAT)** strictly for **ISSB / officer selection**, focusing only on:
-
-• word interpretation
-• thinking direction
-• sentence formation psychology
-
-This is NOT an answer bank and NOT an English class.
-
----
-
-### ✅ Training Method (FOLLOW STRICTLY FOR EVERY WORD)
-
-For each word, teach in the following fixed structure only:
-
----
-
-🔹 **WORD NO. __ : (Flash the word clearly on top)**
-
----
-
-### 1️⃣ Word Nature
-
-Explain whether the word is:
-
-• Positive
-• Neutral
-• Negative
-
-Also explain **why ISSB psychologists psychologically treat it that way**.
-
----
-
-### 2️⃣ What the Word Tests
-
-Explain clearly:
-
-• Which **Officer Like Qualities (OLQs)** this word checks
-• What kind of **mental reaction** ISSB psychologists look for when this word appears
-
-Keep it practical — not textbook definitions.
-
----
-
-### 3️⃣ Correct Thinking Direction
-
-Explain how an officer’s mind should move **within 2–3 seconds**, for example:
-
-• action-based thinking
-• responsibility acceptance
-• leadership initiative
-• emotional control
-• optimistic realism
-
-Explain this in **simple, practical terms** (not theory, not slogans).
-
----
-
-### 4️⃣ Sentence-Making Logic  *(MOST IMPORTANT PART)*
-
-Teach clearly:
-
-• What type of sentence is suitable
-(action / attitude / responsibility / solution)
-
-• Why the sentence **may or may not include the word itself**
-
-• How to keep the sentence
-– short
-– natural
-– decisive
-
-• How to avoid:
-– fear-based thoughts
-– blame
-– excuses
-– negative constructions like
-“cannot”, “do not”, “never”
-
-Explain the **mental formula behind the sentence**, such as:
-
-> situation → responsibility → action / attitude
-
----
-
-### 5️⃣ Common Weak Responses
-
-Give **2–3 examples of weak or wrong thinking**
-(prefer short phrases instead of full sentences if possible)
-
-Also explain briefly **why ISSB psychologists reject them**.
-
----
-
-### 6️⃣ One Ideal Officer-Like Response
-
-Give **only ONE sentence** which:
-
-• can be written within 10 seconds
-• reflects OLQs
-• sounds natural, not memorized
-• is psychologically strong
-• is realistic (no heroic or dramatic tone)
-
----
-
-### After finishing one word, always ask:
-
-**“Shall we move to the next word?”**
-
----
-
-### ✅ Additional strict rules for you as the trainer
-
-• This is a **personality-thinking class**, not an answer list
-• Do not over-polish language
-• Keep sentences simple and officer-like
-• Focus on thinking process, not vocabulary
-• Maintain realism — no motivational or heroic language
-• Mix words in sequence:
-– positive
-– neutral
-– negative
-
----
-
-### ✅ Important interaction rule
-
-I will give you the words **one by one**.
-You must teach **only one word at a time** using the above structure.</div>
-    <button class="copy-btn" onclick="copyPrompt()">
-      <span id="copy-status">Copy Prompt</span>
-    </button>
-  </div>
-</div>
-
 <div class="section cat-1">
   <div class="section-header">
     <span class="section-num">01</span>
@@ -823,6 +635,163 @@ You must teach **only one word at a time** using the above structure.</div>
   </div>
 </div>
 
+<div class="section cat-2">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div class="section-title-block">
+      <p class="section-cat">Category Two</p>
+      <h2 class="section-title">Social &amp;<br>Interpersonal</h2>
+      <p class="section-focus">Focus: Maturity, relationships, and stability</p>
+    </div>
+    <div class="section-badge"></div>
+  </div>
+  <div class="word-tags">
+    <span class="word-tag">Friend</span><span class="word-tag">Girl</span><span class="word-tag">Parents</span><span class="word-tag">Society</span><span class="word-tag">Cooperation</span><span class="word-tag">Character</span><span class="word-tag">Culture</span><span class="word-tag">Assist</span><span class="word-tag">Kiss</span><span class="word-tag">Love</span><span class="word-tag">Hug</span><span class="word-tag">Intimacy</span><span class="word-tag">Gender</span><span class="word-tag">Prostitute</span><span class="word-tag">Marriage</span>
+  </div>
+  <div class="word-grid">
+    <div class="word-card cat-2"><p class="word-name">Friend</p><p class="word-sentence">True friends stand by you in every season.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Girl</p><p class="word-sentence">Girls shape the future of every society.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Parents</p><p class="word-sentence">Parents are our first teachers.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Society</p><p class="word-sentence">Contributing to society is a duty.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Cooperation</p><p class="word-sentence">Cooperation speeds up the task.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Character</p><p class="word-sentence">Integrity defines character.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Culture</p><p class="word-sentence">We should respect every culture.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Assist</p><p class="word-sentence">Assisting others builds bonds.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Kiss</p><p class="word-sentence">A gentle kiss expresses affection.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Love</p><p class="word-sentence">Love fosters harmony.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Hug</p><p class="word-sentence">A hug shows warmth.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Intimacy</p><p class="word-sentence">Intimacy requires trust.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Gender</p><p class="word-sentence">Gender equality empowers a nation.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Prostitute</p><p class="word-sentence">Society must protect the vulnerable.</p></div>
+    <div class="word-card cat-2"><p class="word-name">Marriage</p><p class="word-sentence">Marriage is a sacred bond.</p></div>
+  </div>
+</div>
+
+<div class="section cat-4">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div class="section-title-block">
+      <p class="section-cat">Category Three</p>
+      <h2 class="section-title">Aggression &amp;<br>Stress Response</h2>
+      <p class="section-focus">Focus: Remaining calm, objective, and constructive</p>
+    </div>
+    <div class="section-badge"></div>
+  </div>
+  <div class="word-tags">
+    <span class="word-tag">Enemy</span><span class="word-tag">Fear</span><span class="word-tag">Ghost</span><span class="word-tag">Monster</span><span class="word-tag">Blood</span><span class="word-tag">Afraid</span><span class="word-tag">Anger</span><span class="word-tag">Hostage</span><span class="word-tag">Murdered</span><span class="word-tag">Gun</span><span class="word-tag">Assault</span><span class="word-tag">Harm</span><span class="word-tag">Knife</span><span class="word-tag">Arrest</span><span class="word-tag">Rape</span><span class="word-tag">Genocide</span><span class="word-tag">Revolt</span><span class="word-tag">Shoot</span><span class="word-tag">Curse</span><span class="word-tag">Betrayals</span><span class="word-tag">Frustrate</span><span class="word-tag">Distraction</span><span class="word-tag">Evil</span><span class="word-tag">Fail</span>
+  </div>
+  <div class="word-grid">
+    <div class="word-card cat-4"><p class="word-name">Enemy</p><p class="word-sentence">A brave soldier defeats the enemy.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Fear</p><p class="word-sentence">Courage overcomes fear.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Ghost</p><p class="word-sentence">Science dispels the myth of ghosts.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Monster</p><p class="word-sentence">Only our fears are monsters.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Blood</p><p class="word-sentence">Blood donation saves lives.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Afraid</p><p class="word-sentence">Being brave means acting even when afraid.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Anger</p><p class="word-sentence">Patience controls anger.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Hostage</p><p class="word-sentence">Special forces rescue hostages.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Murdered</p><p class="word-sentence">Justice prevails over crime.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Gun</p><p class="word-sentence">A gun is a soldier's companion.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Assault</p><p class="word-sentence">Laws protect against assault.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Harm</p><p class="word-sentence">We should not harm the innocent.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Knife</p><p class="word-sentence">A knife is a useful tool.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Arrest</p><p class="word-sentence">Police arrest lawbreakers.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Rape</p><p class="word-sentence">Strict laws deter heinous crimes.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Genocide</p><p class="word-sentence">Humanity must prevent genocide.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Revolt</p><p class="word-sentence">History is shaped by revolts.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Shoot</p><p class="word-sentence">Soldiers shoot with precision.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Curse</p><p class="word-sentence">Knowledge removes the curse of ignorance.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Betrayals</p><p class="word-sentence">Loyalty overcomes betrayals.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Frustrate</p><p class="word-sentence">Persistence kills frustration.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Distraction</p><p class="word-sentence">Focus avoids distraction.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Evil</p><p class="word-sentence">Good always triumphs over evil.</p></div>
+    <div class="word-card cat-4"><p class="word-name">Fail</p><p class="word-sentence">Failure is a stepping stone.</p></div>
+  </div>
+</div>
+
+<div class="section cat-3">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div class="section-title-block">
+      <p class="section-cat">Category Four</p>
+      <h2 class="section-title">Morality &amp;<br>Logic</h2>
+      <p class="section-focus">Focus: Honesty, logic, and ethical standing</p>
+    </div>
+    <div class="section-badge"></div>
+  </div>
+  <div class="word-tags">
+    <span class="word-tag">Morality</span><span class="word-tag">Peace</span><span class="word-tag">Integrity</span><span class="word-tag">Truth</span><span class="word-tag">Lie</span><span class="word-tag">Greed</span><span class="word-tag">Jealous</span><span class="word-tag">Charity</span><span class="word-tag">Mercy</span><span class="word-tag">Propose</span><span class="word-tag">Order</span>
+  </div>
+  <div class="word-grid">
+    <div class="word-card cat-3"><p class="word-name">Morality</p><p class="word-sentence">Morality guides a person's path.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Peace</p><p class="word-sentence">Peace promotes prosperity.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Integrity</p><p class="word-sentence">Integrity defines character.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Truth</p><p class="word-sentence">Truth is better than a lie.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Lie</p><p class="word-sentence">Honesty is always the better path.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Greed</p><p class="word-sentence">Greed leads to downfall.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Jealous</p><p class="word-sentence">Competition is better than jealousy.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Charity</p><p class="word-sentence">Charity helps the needy.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Mercy</p><p class="word-sentence">Mercy is a quality of the brave.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Propose</p><p class="word-sentence">He proposed a new project.</p></div>
+    <div class="word-card cat-3"><p class="word-name">Order</p><p class="word-sentence">Order ensures efficiency.</p></div>
+  </div>
+</div>
+
+<div class="section cat-5">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <div class="section-title-block">
+      <p class="section-cat">Category Five</p>
+      <h2 class="section-title">Challenges &amp;<br>Hardship</h2>
+      <p class="section-focus">Focus: Resilience, adversity, and perseverance</p>
+    </div>
+    <div class="section-badge"></div>
+  </div>
+  <div class="word-tags">
+    <span class="word-tag">Struggle</span><span class="word-tag">Conflict</span><span class="word-tag">Pressure</span><span class="word-tag">Frustration</span><span class="word-tag">Distraction</span><span class="word-tag">Fail</span><span class="word-tag">Problem</span><span class="word-tag">Disaster</span><span class="word-tag">Adverse</span><span class="word-tag">Defeat</span>
+  </div>
+  <div class="word-grid">
+    <div class="word-card cat-5"><p class="word-name">Struggle</p><p class="word-sentence">Struggle strengthens the will.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Conflict</p><p class="word-sentence">Dialogue resolves conflict peacefully.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Pressure</p><p class="word-sentence">Diamonds are made under pressure.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Frustration</p><p class="word-sentence">Patience converts frustration into focus.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Distraction</p><p class="word-sentence">Discipline prevents distraction.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Fail</p><p class="word-sentence">Failure is a stepping stone to success.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Problem</p><p class="word-sentence">Every problem carries a hidden solution.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Disaster</p><p class="word-sentence">Preparedness reduces disaster impact.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Adverse</p><p class="word-sentence">Adverse conditions build stronger people.</p></div>
+    <div class="word-card cat-5"><p class="word-name">Defeat</p><p class="word-sentence">Defeat teaches more than victory.</p></div>
+  </div>
+</div>
+
+<div class="section cat-6">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <div class="section-title-block">
+      <p class="section-cat">Category Six</p>
+      <h2 class="section-title">Emotional<br>State</h2>
+      <p class="section-focus">Focus: Self-awareness, mood, and regulation</p>
+    </div>
+    <div class="section-badge"></div>
+  </div>
+  <div class="word-tags">
+    <span class="word-tag">Happy</span><span class="word-tag">Funny</span><span class="word-tag">Proud</span><span class="word-tag">Depressed</span><span class="word-tag">Insane</span><span class="word-tag">Hesitation</span><span class="word-tag">Admire</span><span class="word-tag">Hostile</span><span class="word-tag">Reject</span><span class="word-tag">Boring</span><span class="word-tag">Stupid</span><span class="word-tag">Suspicious</span>
+  </div>
+  <div class="word-grid">
+    <div class="word-card cat-6"><p class="word-name">Happy</p><p class="word-sentence">Success makes one happy.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Funny</p><p class="word-sentence">Humor lightens the mood.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Proud</p><p class="word-sentence">Achievements make one proud.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Depressed</p><p class="word-sentence">Exercise and connection help cure depression.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Insane</p><p class="word-sentence">Hard work is an insane passion.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Hesitation</p><p class="word-sentence">Confidence eliminates hesitation.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Admire</p><p class="word-sentence">We admire brave hearts.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Hostile</p><p class="word-sentence">Empathy disarms a hostile attitude.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Reject</p><p class="word-sentence">Rejection redirects one to better paths.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Boring</p><p class="word-sentence">Creativity kills boredom.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Stupid</p><p class="word-sentence">Education cures ignorance.</p></div>
+    <div class="word-card cat-6"><p class="word-name">Suspicious</p><p class="word-sentence">Trust leaves no room for suspicion.</p></div>
+  </div>
+</div>
+
 <div class="divider"></div>
 <footer>
   <span class="footer-label">Word Association Test · 6 Categories · 93 Stimulus Words</span>
@@ -831,21 +800,30 @@ You must teach **only one word at a time** using the above structure.</div>
 
 <div id="wat-overlay">
   <button id="wat-close-x" onclick="closeWAT()">ESC / CLOSE</button>
+
   <div id="wat-start-screen">
     <h2>Word Association<br>Test</h2>
-    <p>80 words · 4 pages of 20<br>8.2 seconds per word<br>5 second page break<br>Respond spontaneously</p>
+    <p>
+      80 words · 4 pages of 20<br>
+      8.2 seconds per word<br>
+      5 second page break<br>
+      Respond spontaneously
+    </p>
     <button id="wat-begin-btn" onclick="beginWAT()">Begin Test</button>
   </div>
+
   <div id="wat-word-screen">
     <div id="wat-serial"></div>
     <div id="wat-word"></div>
     <div id="wat-progress-bar"><div id="wat-progress-fill"></div></div>
   </div>
+
   <div id="wat-break-screen">
     <div id="wat-break-title">Page Break</div>
     <div id="wat-break-page"></div>
     <div id="wat-break-countdown"></div>
   </div>
+
   <div id="wat-done-screen">
     <h3>Test Complete</h3>
     <p>80 words presented · Thank you</p>
@@ -891,10 +869,13 @@ You must teach **only one word at a time** using the above structure.</div>
     return audioCtx;
   }
 
+  // TELEPHONE RING SOUND
   function playChime() {
     try {
       const ctx = getAudioCtx();
       const now = ctx.currentTime;
+      
+      // Create a modulated ring using two frequencies (440Hz & 480Hz)
       const osc1 = ctx.createOscillator();
       const osc2 = ctx.createOscillator();
       const gainNode = ctx.createGain();
@@ -903,7 +884,7 @@ You must teach **only one word at a time** using the above structure.</div>
 
       osc1.frequency.value = 440;
       osc2.frequency.value = 480;
-      lfo.frequency.value = 20;
+      lfo.frequency.value = 20; // Rapid flutter for the ring effect
       lfoGain.gain.value = 0.5;
 
       osc1.connect(gainNode);
@@ -916,8 +897,12 @@ You must teach **only one word at a time** using the above structure.</div>
       gainNode.gain.linearRampToValueAtTime(0.2, now + 0.05);
       gainNode.gain.linearRampToValueAtTime(0, now + 0.4);
 
-      osc1.start(now); osc2.start(now); lfo.start(now);
-      osc1.stop(now + 0.4); osc2.stop(now + 0.4); lfo.stop(now + 0.4);
+      osc1.start(now);
+      osc2.start(now);
+      lfo.start(now);
+      osc1.stop(now + 0.4);
+      osc2.stop(now + 0.4);
+      lfo.stop(now + 0.4);
     } catch(e) {}
   }
 
@@ -933,7 +918,8 @@ You must teach **only one word at a time** using the above structure.</div>
         osc.frequency.setValueAtTime(330, ctx.currentTime + offset);
         gainNode.gain.setValueAtTime(0.05, ctx.currentTime + offset);
         gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + offset + 0.5);
-        osc.start(ctx.currentTime + offset); osc.stop(ctx.currentTime + offset + 0.5);
+        osc.start(ctx.currentTime + offset);
+        osc.stop(ctx.currentTime + offset + 0.5);
       });
     } catch(e) {}
   }
@@ -943,6 +929,7 @@ You must teach **only one word at a time** using the above structure.</div>
     document.getElementById('wat-word-screen').classList.remove('visible');
     document.getElementById('wat-break-screen').classList.remove('visible');
     document.getElementById('wat-done-screen').classList.remove('visible');
+
     if (name === 'start') document.getElementById('wat-start-screen').style.display = 'block';
     else if (name === 'word') document.getElementById('wat-word-screen').classList.add('visible');
     else if (name === 'break') document.getElementById('wat-break-screen').classList.add('visible');
@@ -959,19 +946,38 @@ You must teach **only one word at a time** using the above structure.</div>
   }
 
   function showWord(index) {
-    if (index >= TOTAL_WORDS) { endTest(); return; }
+    if (index >= TOTAL_WORDS) {
+      endTest();
+      return;
+    }
+
     const pageNum = Math.floor(index / WORDS_PER_PAGE) + 1;
     const posInPage = index % WORDS_PER_PAGE;
-    if (posInPage === 0 && index !== 0) { showPageBreak(pageNum, index); return; }
+
+    if (posInPage === 0 && index !== 0) {
+      showPageBreak(pageNum, index);
+      return;
+    }
+
     showScreen('word');
     const wordEl = document.getElementById('wat-word');
     const serialEl = document.getElementById('wat-serial');
     serialEl.textContent = `Word ${index + 1} of ${TOTAL_WORDS} · Page ${pageNum}`;
+
     wordEl.classList.remove('show');
-    setTimeout(() => { wordEl.textContent = testWords[index]; wordEl.classList.add('show'); }, 120);
+    setTimeout(() => {
+      wordEl.textContent = testWords[index];
+      wordEl.classList.add('show');
+    }, 120);
+
     animateProgress(WORD_DURATION);
+
     clearTimeout(timer);
-    timer = setTimeout(() => { playChime(); currentIndex++; showWord(currentIndex); }, WORD_DURATION);
+    timer = setTimeout(() => {
+      playChime();
+      currentIndex++;
+      showWord(currentIndex);
+    }, WORD_DURATION);
   }
 
   function showPageBreak(nextPage, resumeIndex) {
@@ -980,29 +986,49 @@ You must teach **only one word at a time** using the above structure.</div>
     document.getElementById('wat-break-page').textContent = `Page ${nextPage}`;
     let remaining = Math.ceil(PAGE_BREAK_DURATION / 1000);
     document.getElementById('wat-break-countdown').textContent = remaining;
+
     const countdown = setInterval(() => {
       remaining--;
       document.getElementById('wat-break-countdown').textContent = remaining;
-      if (remaining <= 0) { clearInterval(countdown); showWord(resumeIndex); }
+      if (remaining <= 0) {
+        clearInterval(countdown);
+        showWord(resumeIndex);
+      }
     }, 1000);
   }
 
-  function endTest() { showScreen('done'); clearTimeout(timer); }
+  function endTest() {
+    showScreen('done');
+    clearTimeout(timer);
+  }
 
-  window.startWAT = function() { document.getElementById('wat-overlay').classList.add('active'); showScreen('start'); };
-  window.beginWAT = function() { testWords = shuffle(UNIQUE_WORDS).slice(0, TOTAL_WORDS); currentIndex = 0; showWord(0); };
-  window.closeWAT = function() { clearTimeout(timer); document.getElementById('wat-overlay').classList.remove('active'); showScreen('start'); };
-  window.copyPrompt = function() {
-    const text = document.getElementById('ai-prompt-text').innerText;
-    navigator.clipboard.writeText(text).then(() => {
-        const btn = document.getElementById('copy-status');
-        btn.innerText = "COPIED!";
-        setTimeout(() => { btn.innerText = "COPY PROMPT"; }, 2000);
-    });
+  window.startWAT = function() {
+    document.getElementById('wat-overlay').classList.add('active');
+    showScreen('start');
   };
 
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWAT(); });
+  window.beginWAT = function() {
+    testWords = shuffle(UNIQUE_WORDS).slice(0, TOTAL_WORDS);
+    currentIndex = 0;
+    showWord(0);
+  };
+
+  window.closeWAT = function() {
+    clearTimeout(timer);
+    document.getElementById('wat-overlay').classList.remove('active');
+    showScreen('start');
+    document.getElementById('wat-word').classList.remove('show');
+  };
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      if (document.getElementById('wat-overlay').classList.contains('active')) {
+        closeWAT();
+      }
+    }
+  });
 })();
 </script>
+
 </body>
 </html>
